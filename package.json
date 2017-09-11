@@ -1,0 +1,16 @@
+{
+  "name": "psd_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browser-window": "^0.4.0",
+    "psd": "^3.2.0",
+    "remote": "^0.2.6"
+  }
+}
