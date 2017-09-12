@@ -1,13 +1,42 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Electron Read Us</title>
+	<meta charset="UTF-8">
+	<title>psd reader</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="node_modules/materialize-css/dist/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+	<link href="style/style.css" type="text/css" rel="Stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
+
 <body>
-<h1>PSD READER</h1>
-<button id="file_select2" type="button">ファイル選択</button>
-<textarea rows="35" cols="50" id="tree_view"></textarea>
-<script type="application/javascript" src="index.js"></script>
+	<nav>
+		<div class="nav-wrapper container">
+			<a href="#" class="brand-logo">psdreader</a>
+		</div>
+	</nav>
+	<div class="select-block container">
+			<div class="row center">
+				<button id="file_select" class="btn waves-effect waves-light" type="button">
+			Select File
+			<i class="material-icons right">file_upload</i>
+		</button>
+		</div>
+	</div>
+	<div class="debug-block container">
+			<textarea rows="35" cols="50" id="debug-area"></textarea>
+	</div>
+	<div class="display-block container">
+		<ul id="layer-list" class="collection">
+		</ul>
+	</div>
+	<script>
+		jQuery = $ = require('jquery');
+		window.Hammer = require('hammerjs');
+	</script>
+	<script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>-
+	<script type="application/javascript" src="scripts/index.js"></script>
 </body>
+
 </html>
