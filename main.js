@@ -1,4 +1,4 @@
-/* jshint: node enable */
+/* jshint node:true */
 
 'use strict';
 
@@ -15,7 +15,7 @@ app.on('window-all-closed', function() {
 
 app.on('ready', function() {
 	mainWindow = new BrowserWindow({width: 800, height: 600});
-	//mainWindow.toggleDevTools();
+	mainWindow.toggleDevTools();
 	mainWindow.loadURL('file://' + __dirname + '/index.html');
 
 	mainWindow.on('closed', function() {
