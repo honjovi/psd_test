@@ -1,6 +1,3 @@
-/* jshint node:true */
-/* global $, Image */
-
 'use strict';
 
 var electron = require('electron');
@@ -9,8 +6,7 @@ var dialog = remote.dialog;
 var psd = require('psd');
 var PNG = require('pngjs').PNG;
 
-
-$('#file_select').on('click', function(e){
+$('#file_select').on('click', function(){
 	var currentWindow = remote.getCurrentWindow();
 
 	dialog.showOpenDialog(
