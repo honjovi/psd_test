@@ -25,8 +25,7 @@ $('#file_select').on('click', function(){
 			psd_file.parse();
 			console.log(psd_file);
 			
-			var ul = $('<ul />').addClass('collection').attr('id', 'layer-list');
-			$('#display-block').append(ul);
+			createLayerTable();
 			
 			/*
 			psd_file.layers.forEach(function(layer){
@@ -35,7 +34,8 @@ $('#file_select').on('click', function(){
 			*/
 			
 			forAllLayer(psd_file.tree(), function(node){
-				appendLayerToList(node.layer);
+				//appendLayerToList(node.layer);
+				appendLayerToTable(node.layer);
 			});
 			//deleteProgressBar();
 		}
@@ -67,7 +67,25 @@ var forAllLayer = function(node, func){
 };
 
 
-var appendLayerToList = function(layer){
+var createLayerTable = function(){
+	var tr = $('<tr />')
+		.append($('<th />').text('check').addClass('layer-table-align-center'))
+		.append($('<th />').text('x').addClass('layer-table-align-center'))
+		.append($('<th />').text('y').addClass('layer-table-align-center'))
+		.append($('<th />').text('w').addClass('layer-table-align-center'))
+		.append($('<th />').text('h').addClass('layer-table-align-center'))
+		.append($('<th />').text('thumbnail').addClass('layer-table-align-center'));
+	var thead = $('<thead />').append(tr);
+	var tbody = $('<tbody .>').attr('id', 'layer-table-body');
+	var layerTable = $('<table />').addClass('hilight').attr('id', 'layer-table');
+	layerTable.append(thead);
+	layerTable.append(tbody);
+	
+	$('#display-block').append(layerTable);
+}
+
+
+var appendLayerToTable = function(layer){
 	var id = 'checkbox-' + layer.name.replace(/[^a-zA-Z0-9\-_:.]/g, '');
 	
 	var checkbox = $('<input />')
@@ -79,20 +97,23 @@ var appendLayerToList = function(layer){
 	var label = $('<label />')
 		.attr('for', id)
 		.text(layer.name);
+		
+	var checkboxDiv = $('<div />')
+		.append(checkbox)
+		.append(label);
 	
 	var image = $(createImageElement(layer))
-		.addClass('secondary-content')
 		.attr('height', '28');
+	
+	var tr = $('<tr />')
+		.append($('<td />').append(checkboxDiv))
+		.append($('<td />').text(layer.left).addClass('layer-table-align-right'))
+		.append($('<td />').text(layer.top).addClass('layer-table-align-right'))
+		.append($('<td />').text(layer.width).addClass('layer-table-align-right'))
+		.append($('<td />').text(layer.height).addClass('layer-table-align-right'))
+		.append($('<td />').addClass('layer-table-align-right').append(image));
 
-	var newLayer = $('<li />')
-		.addClass('collection-item');
-		
-	newLayer
-		.append(checkbox)
-		.append(label)
-		.append(image);
-
-	$('#layer-list').append(newLayer);
+	$('#layer-table-body').append(tr);
 };
 
 
