@@ -11,12 +11,12 @@
 </head>
 
 <body>
-	<nav>
+	<nav id="title-bar">
 		<div class="nav-wrapper container">
 			<a href="#" class="brand-logo">psdreader</a>
 		</div>
 	</nav>
-	<div class="select-block container">
+	<div id="select-block" class="container">
 			<div class="row center">
 				<button id="file_select" class="btn waves-effect waves-light" type="button">
 			Select File
@@ -24,18 +24,13 @@
 		</button>
 		</div>
 	</div>
-	<div class="debug-block container">
-			<textarea rows="35" cols="50" id="debug-area"></textarea>
-	</div>
-	<div class="display-block container">
-		<ul id="layer-list" class="collection">
-		</ul>
+	<div id="display-block" class="container">
 	</div>
 	<script>
 		jQuery = $ = require('jquery');
 		window.Hammer = require('hammerjs');
 	</script>
-	<script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>-
+	<script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
 	<script type="application/javascript" src="scripts/index.js"></script>
 </body>
 
