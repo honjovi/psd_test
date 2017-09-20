@@ -69,14 +69,14 @@ var forAllLayer = function(node, func){
 
 var createLayerTable = function(){
 	var tr = $('<tr />')
-		.append($('<th />').text('check').addClass('layer-table-align-center'))
+		.append($('<th />').text('layer').addClass('layer-table-align-center'))
 		.append($('<th />').text('x').addClass('layer-table-align-center'))
 		.append($('<th />').text('y').addClass('layer-table-align-center'))
 		.append($('<th />').text('w').addClass('layer-table-align-center'))
 		.append($('<th />').text('h').addClass('layer-table-align-center'))
 		.append($('<th />').text('thumbnail').addClass('layer-table-align-center'));
 	var thead = $('<thead />').append(tr);
-	var tbody = $('<tbody .>').attr('id', 'layer-table-body');
+	var tbody = $('<tbody />').attr('id', 'layer-table-body');
 	var layerTable = $('<table />').addClass('hilight').attr('id', 'layer-table');
 	layerTable.append(thead);
 	layerTable.append(tbody);
