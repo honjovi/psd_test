@@ -1,10 +1,12 @@
 'use strict';
 
+
 var electron = require('electron');
 var remote = electron.remote;
 var dialog = remote.dialog;
 var psd = require('psd');
 var PNG = require('pngjs').PNG;
+
 
 $('#file_select').on('click', function(){
 	var currentWindow = remote.getCurrentWindow();
@@ -19,28 +21,52 @@ $('#file_select').on('click', function(){
 			if(files.length === 0){
 				return;
 			}
+			
 			//createProgressBar();
 			
 			var psd_file = psd.fromFile(files[0]);
 			psd_file.parse();
 			console.log(psd_file);
 			
-			createLayerTable();
+			createCanvas(psd_file.image);
 			
-			/*
-			psd_file.layers.forEach(function(layer){
-				appendLayerToList(layer);
-			});
-			*/
+			createLayerTable();
 			
 			forAllLayer(psd_file.tree(), function(node){
 				//appendLayerToList(node.layer);
 				appendLayerToTable(node.layer);
 			});
 			//deleteProgressBar();
+			
+			
 		}
 	);
 });
+
+
+var createCanvas = function(image){
+	var imageElm = createImageElement(image);
+	var canvas = $('<canvas />')
+		.attr('id', 'img-canvas')
+		.attr('width', image.width().toString())
+		.attr('height', image.height().toString())
+		.addClass('center');
+	$('#img-block').append(canvas);
+	
+	if(imageElm.complete){
+		drawImageToCanvas(imageElm);
+	}else{
+		imageElm.onload = function(e){
+			drawImageToCanvas(e.target);
+		};
+	}
+};
+
+
+var drawImageToCanvas = function(image){
+	var ctx = $('#img-canvas').get(0).getContext('2d');
+	ctx.drawImage(image, 0, 0);
+}
 
 
 var createProgressBar = function(){
@@ -102,7 +128,7 @@ var appendLayerToTable = function(layer){
 		.append(checkbox)
 		.append(label);
 	
-	var image = $(createImageElement(layer))
+	var image = $(createImageElement(layer.image))
 		.attr('height', '28');
 	
 	var tr = $('<tr />')
@@ -117,9 +143,9 @@ var appendLayerToTable = function(layer){
 };
 
 
-var createImageElement = function(layer){
-	var image = new Image();
-	var b64Data = PNG.sync.write(layer.image.toPng()).toString('base64');
-	image.src = "data:image/png;base64," + b64Data;
-	return image;
+var createImageElement = function(layerImage){
+	var imageElm = new Image();
+	var b64Data = PNG.sync.write(layerImage.toPng()).toString('base64');
+	imageElm.src = "data:image/png;base64," + b64Data;
+	return imageElm;
 };

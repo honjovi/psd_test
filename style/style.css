@@ -6,6 +6,10 @@ body {
 	padding-top: 15px;
 }
 
+#img-block {
+	text-align: center;
+}
+
 .layer-table-align-right {
 	text-align: right;
 }
