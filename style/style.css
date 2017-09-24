@@ -2,12 +2,21 @@ body {
 	background: #f9f9f9;
 }
 
-#select-block {
+div#select-block {
 	padding-top: 15px;
 }
 
-#img-block {
+div#img-block {
 	text-align: center;
+	/* position: relative; */
+}
+
+canvas#img-canvas {
+	position: absolute;
+}
+
+canvas#position-canvas {
+	position: relative;
 }
 
 .layer-table-align-right {

@@ -22,8 +22,6 @@ $('#file_select').on('click', function(){
 				return;
 			}
 			
-			//createProgressBar();
-			
 			var psd_file = psd.fromFile(files[0]);
 			psd_file.parse();
 			console.log(psd_file);
@@ -33,11 +31,9 @@ $('#file_select').on('click', function(){
 			createLayerTable();
 			
 			forAllLayer(psd_file.tree(), function(node){
-				//appendLayerToList(node.layer);
 				appendLayerToTable(node.layer);
+				appendCooridanteToCanvas(node.layer.left, node.layer.top);
 			});
-			//deleteProgressBar();
-			
 			
 		}
 	);
@@ -46,18 +42,29 @@ $('#file_select').on('click', function(){
 
 var createCanvas = function(image){
 	var imageElm = createImageElement(image);
-	var canvas = $('<canvas />')
+	var imgCanvas = $('<canvas />')
 		.attr('id', 'img-canvas')
 		.attr('width', image.width().toString())
 		.attr('height', image.height().toString())
+		.attr('z-index', '1')
 		.addClass('center');
-	$('#img-block').append(canvas);
+	$('#img-block').append(imgCanvas);
+	
+	var positionCanvas = $('<canvas />')
+		.attr('id', 'position-canvas')
+		.attr('width', image.width().toString())
+		.attr('height', image.height().toString())
+		.attr('z-index', '2')
+		.addClass('center');
+	$('#img-block').append(positionCanvas);
 	
 	if(imageElm.complete){
 		drawImageToCanvas(imageElm);
 	}else{
+		createProgressBar();
 		imageElm.onload = function(e){
 			drawImageToCanvas(e.target);
+			deleteProgressBar();
 		};
 	}
 };
@@ -70,14 +77,14 @@ var drawImageToCanvas = function(image){
 
 
 var createProgressBar = function(){
-	var progressBar = $('div').addClass('progress').attr('id', 'prog-bar');
-	$('div').addClass('indeterminate').appendTo(progressBar);
+	var progressBar = $('<div />').addClass('progress').attr('id', 'prog-bar');
+	$('<div />').addClass('indeterminate').appendTo(progressBar);
 	progressBar.insertAfter('#title-bar');
 };
 
 
 var deleteProgressBar = function(){
-	$('prog-bar').remove();
+	$('#prog-bar').remove();
 };
 
 
@@ -148,4 +155,10 @@ var createImageElement = function(layerImage){
 	var b64Data = PNG.sync.write(layerImage.toPng()).toString('base64');
 	imageElm.src = "data:image/png;base64," + b64Data;
 	return imageElm;
+};
+
+var appendCooridanteToCanvas = function(x, y){
+	var ctx = $('#position-canvas').get(0).getContext('2d');
+	ctx.fillRect(x - 1, y - 1, 3, 3);
+	ctx.fillText('(' + x + ', ' + y + ')', x + 5, y + 10);
 };
