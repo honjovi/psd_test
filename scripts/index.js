@@ -15,56 +15,57 @@ $('#file_select').on('click', function(){
 		currentWindow, 
 		{
 			properties: ['openFile'],
-			filters: []
+			filters: [{ name: 'PSD File', extensions: ['psd']}]
 		},
 		function(files){
-			if(files.length === 0){
+			//cancel
+			if(!files || files.length === 0){
 				return;
 			}
 			
-			var psd_file = psd.fromFile(files[0]);
-			psd_file.parse();
-			console.log(psd_file);
+			$('#file_select').addClass('disabled');
 			
-			createCanvas(psd_file.image);
-			
-			createLayerTable();
-			
-			forAllLayer(psd_file.tree(), function(node){
-				appendLayerToTable(node.layer);
-				appendCooridanteToCanvas(node.layer.left, node.layer.top);
-			});
-			
+			openPSDFile(files[0]);
 		}
 	);
 });
 
 
+var openPSDFile = function(file){
+	var psd_file = psd.fromFile(file);
+	psd_file.parse();
+	console.log(psd_file);
+	
+	createCanvas(psd_file.image);
+	
+	createLayerTable();
+	
+	forAllLayer(psd_file.tree(), function(node){
+		appendLayerToTable(node.layer);
+		appendCooridanteToCanvas(node.layer.left, node.layer.top);
+	});
+};
+
+
 var createCanvas = function(image){
 	var imageElm = createImageElement(image);
-	var imgCanvas = $('<canvas />')
-		.attr('id', 'img-canvas')
+	$('#img-canvas')
 		.attr('width', image.width().toString())
 		.attr('height', image.height().toString())
-		.attr('z-index', '1')
-		.addClass('center');
-	$('#img-block').append(imgCanvas);
+		.show();
 	
-	var positionCanvas = $('<canvas />')
-		.attr('id', 'position-canvas')
+	$('#position-canvas')
 		.attr('width', image.width().toString())
 		.attr('height', image.height().toString())
-		.attr('z-index', '2')
-		.addClass('center');
-	$('#img-block').append(positionCanvas);
+		.show();
 	
 	if(imageElm.complete){
 		drawImageToCanvas(imageElm);
 	}else{
-		createProgressBar();
+		//createProgressBar();
 		imageElm.onload = function(e){
 			drawImageToCanvas(e.target);
-			deleteProgressBar();
+			//deleteProgressBar();
 		};
 	}
 };
@@ -101,20 +102,7 @@ var forAllLayer = function(node, func){
 
 
 var createLayerTable = function(){
-	var tr = $('<tr />')
-		.append($('<th />').text('layer').addClass('layer-table-align-center'))
-		.append($('<th />').text('x').addClass('layer-table-align-center'))
-		.append($('<th />').text('y').addClass('layer-table-align-center'))
-		.append($('<th />').text('w').addClass('layer-table-align-center'))
-		.append($('<th />').text('h').addClass('layer-table-align-center'))
-		.append($('<th />').text('thumbnail').addClass('layer-table-align-center'));
-	var thead = $('<thead />').append(tr);
-	var tbody = $('<tbody />').attr('id', 'layer-table-body');
-	var layerTable = $('<table />').addClass('hilight').attr('id', 'layer-table');
-	layerTable.append(thead);
-	layerTable.append(tbody);
-	
-	$('#display-block').append(layerTable);
+	$('#layer-table').show();
 }
 
 

@@ -13,16 +13,16 @@ div#img-block {
 
 canvas#img-canvas {
 	position: absolute;
+	z-index: 1;
+	display: none;
 }
 
 canvas#position-canvas {
 	position: relative;
+	z-index: 2;
+	display: none;
 }
 
-.layer-table-align-right {
-	text-align: right;
-}
-
-.layer-table-align-center {
-	text-align: center;
+table#layer-table {
+	display: none;
 }

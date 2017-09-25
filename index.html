@@ -20,13 +20,29 @@
 		<div class="row center">
 			<button id="file_select" class="btn waves-effect waves-light" type="button">
 				PSD FILE
-				<i class="material-icons right">file_upload</i>
+				<i class="material-icons right">collections</i>
 			</button>
 		</div>
 	</div>
 	<div id="img-block" class="container">
+		<canvas id="img-canvas" class="center"></canvas>
+		<canvas id="position-canvas" class="center"></canvas>
 	</div>
-	<div id="display-block" class="container">
+	<div id="table-block" class="container">
+		<table id="layer-table" class="hilight">
+			<thead>
+				<tr>
+					<th class="center">layer</th>
+					<th class="center">x</th>
+					<th class="center">y</th>
+					<th class="center">w</th>
+					<th class="center">h</th>
+					<th class="center">thumbnail</th>
+				</tr>
+			</thead>
+			<tbody id="layer-table-body">
+			</tbody>
+		</table>
 	</div>
 	<script>
 		jQuery = $ = require('jquery');
