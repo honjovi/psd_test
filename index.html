@@ -18,7 +18,7 @@
 	</nav>
 	<div id="select-block" class="container">
 		<div class="row center">
-			<button id="file_select" class="btn waves-effect waves-light" type="button">
+			<button id="select-file" class="btn waves-effect waves-light" type="button">
 				PSD FILE
 				<i class="material-icons right">collections</i>
 			</button>
@@ -27,6 +27,7 @@
 	<div id="img-block" class="container">
 		<canvas id="img-canvas" class="center"></canvas>
 		<canvas id="position-canvas" class="center"></canvas>
+		<canvas id="save-canvas" class="center"></canvas>
 	</div>
 	<div id="table-block" class="container">
 		<table id="layer-table" class="hilight">
@@ -43,6 +44,14 @@
 			<tbody id="layer-table-body">
 			</tbody>
 		</table>
+	</div>
+	<div id="save-block" class="container">
+		<div class="row center">
+			<button id="save-img" class="btn waves-effect waves-light" type="button">
+				SAVE IMAGE
+				<i class="material-icons right">file_download</i>
+			</button>
+		</div>
 	</div>
 	<script>
 		jQuery = $ = require('jquery');

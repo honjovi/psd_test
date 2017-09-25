@@ -8,21 +8,27 @@ div#select-block {
 
 div#img-block {
 	text-align: center;
-	/* position: relative; */
+	display: none;
 }
 
 canvas#img-canvas {
 	position: absolute;
 	z-index: 1;
-	display: none;
 }
 
 canvas#position-canvas {
 	position: relative;
 	z-index: 2;
+}
+
+canvas#save-canvas{
 	display: none;
 }
 
 table#layer-table {
+	display: none;
+}
+
+div#save-block {
 	display: none;
 }
