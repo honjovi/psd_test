@@ -173,11 +173,11 @@ var appendLayerToTable = function(layer){
 	
 	var tr = $('<tr />')
 		.append($('<td />').append(checkboxDiv))
-		.append($('<td />').text(layer.left).addClass('layer-table-align-right'))
-		.append($('<td />').text(layer.top).addClass('layer-table-align-right'))
-		.append($('<td />').text(layer.width).addClass('layer-table-align-right'))
-		.append($('<td />').text(layer.height).addClass('layer-table-align-right'))
-		.append($('<td />').addClass('layer-table-align-right').append(image));
+		.append($('<td />').text(layer.left))
+		.append($('<td />').text(layer.top))
+		.append($('<td />').text(layer.width))
+		.append($('<td />').text(layer.height))
+		.append($('<td />').addClass('right').append(image));
 
 	$('#layer-table-body').append(tr);
 };
